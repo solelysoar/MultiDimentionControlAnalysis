@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import math
 import datetime
 from copy import deepcopy
@@ -79,8 +80,8 @@ class ControlAnalysis:
         print(f"total traversal time:{datetime.datetime.now() - start_time}")
 
         result_columns = cut_columns + ["min_objective", "max_objective"] + \
-            ["min_" + _name for _name in control_columns] + ["max_" + _name for _name in control_columns]
-        result = pd.DataFrame(result, columns = result_columns)
+            list(np.array([["min_" + _name, "max_" + _name] for _name in control_columns]).flatten())
+        result = pd.DataFrame(result, columns=result_columns)
         if ascending:
             new_columns = [_name.replace("min", "before_optimize") for _name in result_columns]
             new_columns = [_name.replace("max", "after_optimize") for _name in new_columns]
