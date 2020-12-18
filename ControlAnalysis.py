@@ -75,12 +75,13 @@ class ControlAnalysis:
                 for _controlP in control_columns:
                     _bin_result.append(_min[_controlP].mean())
                     _bin_result.append(_max[_controlP].mean())
+                _bin_result.append(len(_bin))
                 result.append(_bin_result)
 
         print(f"total traversal time:{datetime.datetime.now() - start_time}")
 
         result_columns = cut_columns + ["min_objective", "max_objective"] + \
-            list(np.array([["min_" + _name, "max_" + _name] for _name in control_columns]).flatten())
+            list(np.array([["min_" + _name, "max_" + _name] for _name in control_columns]).flatten()) + ["n_data"]
         result = pd.DataFrame(result, columns=result_columns)
         if ascending:
             new_columns = [_name.replace("min", "before_optimize") for _name in result_columns]
