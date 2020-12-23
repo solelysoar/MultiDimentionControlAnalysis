@@ -9,10 +9,14 @@ else:
     df_test = pd.read_csv(data_path)
     tool = ControlAnalysis()
     result = tool.control_direction_explore(df_test,
-                                            condition_columns=["OutsideDryBulb", "OutsideWebBulb", "ch(lx)_current_percent"],
+                                            condition_columns=["OutsideDryBulb", "OutsideWebBulb",
+                                                               "ch(lx)_current_percent"],
                                             condition_tolerance=[1, 1, 2],
                                             control_columns=["actual_scw_water_temperature_diff",
-                                                             "scw_close_to_wet_bulb_temperature"],
-                                            objective_column="scw_total_power",
+                                                             "scw_close_to_wet_bulb_temperature",
+                                                             "actual_sch_water_temperature_diff"],
+                                            objective_column="system_total_power",
                                             ascending=False,
                                             min_points=3)  # traversal total time 8 min 56 seconds
+    result.to_csv("total_power_lx.csv")
+
