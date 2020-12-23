@@ -33,6 +33,7 @@ if "~" in plot_info["column_name"]:
     outcol = plot_info["column_name"].split("~")[1]
     Rtemp_columns = [_name for _name in df_721.columns if (incol in _name) and (outcol not in _name)]
 else:
+    incol = plot_info["column_name"]
     Rtemp_columns = [_name for _name in df_721.columns if (plot_info["column_name"] in _name)]
 _tmp = df_721.loc[start_time:end_time, Rtemp_columns]
 
